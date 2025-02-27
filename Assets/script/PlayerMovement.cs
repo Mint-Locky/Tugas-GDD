@@ -10,17 +10,33 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     SpriteRenderer sr;
 
+    Animator am;
+
+    Vector3 MoveDir;
+
+    Rigidbody2D rb;
+
+    //Start is called before the first frame update
+
     void Start()
     {
+        am = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
+
+    void FixedUpdate()
+    {
+        rb.linearVelocity = new Vector3(MoveDir.x*speed, MoveDir.y*speed,0);
+    }
     void Update()
     {
         float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         float moveY = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        transform.Translate(new Vector3(moveX, moveY, 0));
+        //transform.Translate(new Vector3(moveX, moveY, 0));
+        MoveDir = new Vector3(moveX, moveY, 0).normalized;
 
         //Camera follow
         if (mainCamera != null )
@@ -37,6 +53,15 @@ public class NewMonoBehaviourScript : MonoBehaviour
         else
         {
             sr.flipX = false;
+        }
+        //moving
+        if (MoveDir.x != 0 || MoveDir.y != 0)
+        {
+            am.SetBool("Move", true);
+        }
+        else
+        {
+            am.SetBool("Move", false);
         }
     }
 }
