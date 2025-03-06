@@ -24,6 +24,7 @@ public class BulletMovement : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.linearVelocity = transform.up * speed;
+        rb.linearVelocity = transform.right * speed;
+       
     }
 }
