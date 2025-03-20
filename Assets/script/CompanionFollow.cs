@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CompanionFollow : MonoBehaviour
@@ -5,13 +7,15 @@ public class CompanionFollow : MonoBehaviour
     public Transform player; //Reference to the Player
     public float followSpeed; //Speed of following
     public float followDistance; //Distance threshold for following
-
+    private int CompcurrentHealth;
+    public int CompmaxHealth;
+    private bool isInvincible = false;
+    public float invincibilitiyDuration = 1.5f;
 
     void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Companion"), LayerMask.NameToLayer("Player"));
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Companion"), LayerMask.NameToLayer("Bullet"));
-        currentHealth = maxHealth;
         CompcurrentHealth = CompmaxHealth;
     }
 
@@ -30,8 +34,6 @@ public class CompanionFollow : MonoBehaviour
         }
     }
 
-    public int maxHealth;
-    private int currentHealth;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -43,38 +45,38 @@ public class CompanionFollow : MonoBehaviour
     }
     void TakeDamage()
     {
-        currentHealth--;
-        if (currentHealth <= 0)
+        CompcurrentHealth = Mathf.Max(CompcurrentHealth - 1, 0);
+        if (CompcurrentHealth <= 0)
         {
             Destroyed();
         }
+        else { StartCoroutine(InvincibilityCooldown()); }
         //returns the higher of the two values
         CompcurrentHealth = Mathf.Max(CompcurrentHealth - 1, 0);
-        UpdateHpBar(); //Update HP bar
+
 
         if (CompcurrentHealth <= 0)
-        {  Destroyed(); }
-        else { StartCoroutine(InvincibilitiyCooldown()); //mulai cooldown
-    }
+        { Destroyed(); }
+        else
+        {
+            StartCoroutine(InvincibilityCooldown()); //mulai cooldown
+        }
 
-    IEnumerator InvincibilityCooldown()
+        IEnumerator InvincibilityCooldown()
         {
             isInvincible = true; //Companion kebal sementara
             yield return new WaitForSeconds(invincibilitiyDuration);
             isInvincible = false; //Bisa kena hit lagi
         }
-    void Destroyed()
-    {
-        Destroy(gameObject);
+        void Destroyed()
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private int CompcurrentHealth;
-    public int CompmaxHealth;
-    private bool isInvincible = false;
-    public float invincibilitiyDuration = 1.5f;
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && isInvincible)
+        if (collision.CompareTag("Enemy") && !isInvincible)
         {
             TakeDamage();
             Debug.Log("Companion Hit!");
