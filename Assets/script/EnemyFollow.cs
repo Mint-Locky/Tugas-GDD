@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
@@ -6,6 +7,7 @@ public class EnemyFollow : MonoBehaviour
     public Transform companion; //Reference to the companion
     public float followSpeed; //Speed of following
     public float followDistance; //Distance threshold for following
+
     public GameObject hpBarGreen;
     public GameObject hpBarRed;
     public Vector3 hpBarOffset = new Vector3(0f,1f,0f);
@@ -34,7 +36,7 @@ public class EnemyFollow : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
 
         }
-        transform.position = Vector3.MoveTowards(transform.position, companion.position);
+        transform.position = Vector3.MoveTowards(transform.position, companion.position, followSpeed * Time.deltaTime); 
         if (hpBarGreen != null && hpBarRed != null)
         {
             hpBarGreen.transform.position = transform.position + hpBarOffset;
@@ -76,6 +78,7 @@ public class EnemyFollow : MonoBehaviour
 
     void Destroyed()
     {
+        UIManager.Instance.KillCount();
         Destroy(gameObject);
     }
 

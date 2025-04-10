@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class CompanionFollow : MonoBehaviour
@@ -83,4 +84,8 @@ public class CompanionFollow : MonoBehaviour
         }
     }
     
+    private void UpdateHpBar()
+    {
+        UIManager.Instance.UpdateCompanionHP(CompcurrentHealth, CompmaxHealth);
+    }
 }
