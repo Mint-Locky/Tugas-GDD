@@ -12,6 +12,12 @@ public class UIManager : MonoBehaviour
     public Image companionHPBar;
     public TextMeshProUGUI killCountText;
     private int killCount = 0;
+    public CanvasGroup GAMEOVER;
+    public void ShowGameOver() 
+    {
+        Debug.Log("Test");
+        GAMEOVER.alpha = 1.0f;
+    }
 
     private void Awake()
     {

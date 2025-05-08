@@ -14,8 +14,14 @@ public class EnemyFollow : MonoBehaviour
 
     public int maxHealth;
     private int currentHealth;
+    public GameObject coinPrefab;
     void Start()
     {
+        companion = GameObject.FindGameObjectWithTag("Companion").transform;
+        if(companion == null)
+        {
+            Debug.LogError("Companion not found! Make sure your companion has the correct tag.");
+        }
         currentHealth = maxHealth;
         if (hpBarGreen != null && hpBarRed != null)
         {
@@ -56,15 +62,17 @@ public class EnemyFollow : MonoBehaviour
     void TakeDamage()
     {
         currentHealth--;
-        if (currentHealth <= 0)
-        {
-            Destroyed();
-        }
+
         if (hpBarGreen != null && hpBarRed != null)
         {
             hpBarGreen.SetActive(true);
             hpBarRed.SetActive(true);
             UpdateHpBar();
+
+            if (currentHealth <= 0)
+            {
+                Destroyed();
+            }
         }
     }
 
@@ -79,6 +87,10 @@ public class EnemyFollow : MonoBehaviour
     void Destroyed()
     {
         UIManager.Instance.KillCount();
+        if (coinPrefab != null)
+        {
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 
