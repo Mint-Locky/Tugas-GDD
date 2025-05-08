@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 89983463}
   - component: {fileID: 89983465}
   - component: {fileID: 89983464}
+  - component: {fileID: 89983466}
   m_Layer: 5
   m_Name: GAME OVER
   m_TagString: Untagged
@@ -195,6 +196,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89983462}
   m_CullTransparentMesh: 1
+--- !u!225 &89983466
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89983462}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &300541623 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4790322395632202641, guid: bc0006ec17f737b47a042f0d33908974, type: 3}
@@ -293,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Coins '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1155,6 +1168,7 @@ MonoBehaviour:
   coinCountText: {fileID: 328169286}
   companionHPBar: {fileID: 1973817857}
   killCountText: {fileID: 2012093317}
+  GAMEOVER: {fileID: 0}
 --- !u!114 &973744674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2423,7 +2437,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Kills '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
