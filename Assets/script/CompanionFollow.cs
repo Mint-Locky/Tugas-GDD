@@ -72,6 +72,7 @@ public class CompanionFollow : MonoBehaviour
         void Destroyed()
         {
             Destroy(gameObject);
+            FindFirstObjectByType<GameManager>().GameOver();
         }
     }
 
@@ -84,7 +85,7 @@ public class CompanionFollow : MonoBehaviour
         }
     }
     
-    private void UpdateHpBar()
+    private void CUpdateHpBar()
     {
         UIManager.Instance.UpdateCompanionHP(CompcurrentHealth, CompmaxHealth);
     }

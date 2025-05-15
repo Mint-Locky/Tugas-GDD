@@ -13,8 +13,18 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI killCountText;
     private int killCount = 0;
     public CanvasGroup GAMEOVER;
+    public GameObject gameOverScreen;
+
+    private void Start()
+    {
+        gameOverScreen.SetActive(false);
+        UpdateCoinUI();
+        UpdateKillCount();
+    }
+
     public void ShowGameOver() 
     {
+       gameOverScreen.SetActive(true);
         Debug.Log("Test");
         GAMEOVER.alpha = 1.0f;
     }
