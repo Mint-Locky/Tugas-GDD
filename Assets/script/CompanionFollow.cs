@@ -47,6 +47,7 @@ public class CompanionFollow : MonoBehaviour
     void TakeDamage()
     {
         CompcurrentHealth = Mathf.Max(CompcurrentHealth - 1, 0);
+        UpdateHpBar();
         if (CompcurrentHealth <= 0)
         {
             Destroyed();
@@ -85,7 +86,7 @@ public class CompanionFollow : MonoBehaviour
         }
     }
     
-    private void CUpdateHpBar()
+    private void UpdateHpBar ()
     {
         UIManager.Instance.UpdateCompanionHP(CompcurrentHealth, CompmaxHealth);
     }
